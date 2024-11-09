@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Available Rooms</h2>
+<table class="room-table">
+    <tr>
+        <th>Room Image</th>
+        <th>Room Type</th>
+        <th>Description</th>
+        <th>Available Rooms</th>
+        <th>Price</th>
+        <th>Action</th>
+    </tr>
+
+    <!-- Loop through each room -->
+    {% for room in rooms %}
+    <tr>
+        <td>
+            <img src="{% static 'images/' %}{{ room.room_type }}_room.jpg" alt="{{ room.room_type|title }} Room" width="150">
+        </td>
+        <td>{{ room.room_type|title }}</td> <!-- Display room type -->
+        <td>
+            <p>{{ room.description }}</p> <!-- Display description from database -->
+        </td>
+        <td>{{ room.available_rooms }}</td>  <!-- Display available rooms from database -->
+        <td>Rs.{{ room.price }}</td> <!-- Display price from database -->
+        <td>
+            <a href="{% url 'bookings' %}?room_type={{ room.room_type }}" class="book-now-btn">Book Now</a>
+
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

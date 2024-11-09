@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Add this line to load static files -->
+{% block content %}
+<!-- Hero Section with Background Image -->
+<section class="hero" style="background-image: url('{% static "images/hero_background.jpg" %}');">
+    <div class="hero-content">
+        <h2>Welcome to The Grand Hotel</h2>
+        <p>Your luxurious stay awaits</p>
+        <a href="{% url 'rooms' %}" class="cta-btn">Explore Our Rooms</a>
+    </div>
+</section>
+
+<!-- Hotel Information Section -->
+<section class="hotel-info">
+    <div class="container">
+        <h3>About Us</h3>
+        <p>At The Grand Hotel, we offer a blend of luxury, comfort, and convenience. Nestled in the heart of the city, our hotel offers a stunning view, excellent services, and premium rooms that promise an unforgettable stay.</p>
+        <div class="info-images">
+            <div class="info-image">
+                <img src="{% static 'images/hotel_room1.jpg' %}" alt="Luxury Room">
+                <p>Spacious & Comfortable Rooms</p>
+            </div>
+            <div class="info-image">
+                <img src="{% static 'images/hotel_amenities.jpg' %}" alt="Hotel Amenities">
+                <p>State-of-the-art Amenities</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section (Boxed Style) -->
+<section class="testimonials">
+    <div class="container">
+        <h3>What Our Guests Say</h3>
+        <div class="testimonial-box">
+            <table class="testimonial-table">
+                <tr>
+                    <td class="testimonial">
+                        <p>"The Grand Hotel made our vacation unforgettable. The staff was amazing, the room was beautiful, and the amenities were top-notch!"</p>
+                        <span>- John Mathew</span>
+                    </td>
+                    <td class="testimonial">
+                        <p>"A truly luxurious experience! The location was perfect, and the facilities exceeded all expectations. Highly recommend!"</p>
+                        <span>- Arun Sudheer</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="testimonial">
+                        <p>"Amazing ambiance, top-tier service, and great food. Highly recommend staying here!"</p>
+                        <span>- Prem Kumar</span>
+                    </td>
+                    <td class="testimonial">
+                        <p>"One of the best hotels I've ever stayed at. Clean, modern, and the staff is incredible!"</p>
+                        <span>- Arundathi Nair</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to your common styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fce4d6; /* Light peach background */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ff6f61; /* Peachy red */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ffb6a3; /* Light peach border */
+            border-radius: 4px;
+            background-color: #ffe4e1; /* Very light peach background */
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff6f61; /* Focus color on peachy red */
+            background-color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6f61; /* Peachy red button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e75d54; /* Darker peachy red on hover */
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .signup-link a {
+            color: #ff6f61; /* Peachy red */
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                {{ form.username.label }}
+                {{ form.username }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password }}
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="signup-link">
+            <p>Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+        </div>
+    </div>
+</body>
+</html>

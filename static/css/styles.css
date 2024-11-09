@@ -1,0 +1,254 @@
+/* General Reset and Box Model */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7fb;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header Styling */
+.header {
+    background-color: #ffccbc; /* Pastel Peach */
+    color: #333;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #333; /* Darker text for contrast */
+}
+
+.navbar {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #ffab91; /* Lighter peach shade */
+}
+
+/* Hero Section */
+.hero {
+    background-size: cover;
+    background-position: center;
+    padding: 60px 0;  /* Adjust the padding to make the section smaller */
+    color: white;
+    text-align: center;
+    height: 60vh;  /* Reduced height for a more compact section */
+}
+
+.hero-content {
+    max-width: 800px;  /* Set a max-width for the content */
+    margin: 0 auto;  /* Center the content */
+    padding: 30px 20px;  /* Padding for spacing */
+    background-color: rgba(0, 0, 0, 0.4);  /* Semi-transparent black background */
+    border-radius: 10px;  /* Rounded corners for the box */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);  /* Added shadow effect */
+}
+
+.hero-content h2 {
+    font-size: 2.5em;  /* Slightly smaller text size */
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.hero-content p {
+    font-size: 1.3em;  /* Adjust the font size of the paragraph */
+    margin-bottom: 25px;  /* Add space below the paragraph */
+}
+
+.cta-btn {
+    background-color: #ff7043; /* Warm peach */
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: #e64a19; /* Darker peach on hover */
+}
+
+
+
+/* Hotel Information Section */
+.hotel-info {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.info-images {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.info-image {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.info-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-image p {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: 60px 0;
+    background-color: #ffccbc; /* Same pastel peach for consistency */
+    color: white;
+}
+
+.testimonials h3 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.testimonial-box {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+    font-style: italic;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.testimonial span {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #ff7043; /* Warm peach tone for names */
+}
+
+/* Room Table */
+.room-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.room-table th, .room-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.room-table th {
+    background-color: #ffebee; /* Very light peach */
+    color: #333;
+    font-size: 1.1em;
+}
+
+.room-table img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.book-now-btn {
+    padding: 12px 25px;
+    background-color: #ff7043; /* Warm peach */
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    display: inline-block;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.book-now-btn:hover {
+    background-color: #e64a19; /* Darker peach on hover */
+    transform: scale(1.05);
+}
+
+.unavailable-text {
+    color: red;
+    font-weight: bold;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #ffccbc; /* Pastel Peach */
+    color: #333;
+    padding: 30px 0;
+    text-align: center;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer p {
+    font-size: 1.1em;
+}
+
+/* Main Content Styling */
+.main-content {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/*message styling */
+.alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}

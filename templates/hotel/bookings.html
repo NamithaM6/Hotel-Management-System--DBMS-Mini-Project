@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Book Your Room</h2>
+
+<!-- Logout Button -->
+<form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<!-- Booking Form -->
+<form method="POST" action="{% url 'book_room' %}">
+    {% csrf_token %}
+    <h3>Room Booking Details</h3>
+    
+    <label for="room_type">Room Type:</label>
+    <select name="room_type" required>
+        <option value="single">Single</option>
+        <option value="double">Double</option>
+        <option value="suite">Suite</option>
+    </select>
+
+    <label for="check_in_date">Check-in Date:</label>
+    <input type="date" name="check_in_date" required>
+
+    <label for="check_out_date">Check-out Date:</label>
+    <input type="date" name="check_out_date" required>
+
+    <button type="submit">Confirm Booking</button>
+</form>
+
+<!-- Show success/error messages -->
+{% if messages %}
+    <div id="django-messages">
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<hr>
+
+<p>Already have a booking? <a href="{% url 'invoice' %}">View your invoice here</a></p>
+
+<!-- Link to external JavaScript file -->
+<script src="{% static 'js/messages.js' %}"></script>
+
+{% endblock %}

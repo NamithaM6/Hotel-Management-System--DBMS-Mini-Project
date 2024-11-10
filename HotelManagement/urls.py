@@ -37,6 +37,9 @@ urlpatterns = [
     path('bookings/', views.book_room, name='bookings'),
     path('register/', views.signup, name='register'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path("login/", views.custom_login_view, name="login"),
+    path("staff/homepage/", views.staff_homepage, name="staff_homepage"),
+    path("customer/homepage/", views.customer_homepage, name="customer_homepage"),
 ]
 
 

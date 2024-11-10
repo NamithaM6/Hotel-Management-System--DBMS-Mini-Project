@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +39,8 @@
             margin-bottom: 5px;
         }
 
-        .form-group input {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 10px;
             font-size: 14px;
@@ -48,7 +49,8 @@
             background-color: #ffe4e1; /* Very light peach background */
         }
 
-        .form-group input:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #ff6f61; /* Focus color on peachy red */
             background-color: #fff;
@@ -98,6 +100,15 @@
             <div class="form-group">
                 {{ form.password.label }}
                 {{ form.password }}
+            </div>
+
+            <!-- Add login type selection -->
+            <div class="form-group">
+                <label for="user_type">Login as:</label>
+                <select name="user_type" id="user_type">
+                    <option value="customer">Customer</option>
+                    <option value="staff">Staff</option>
+                </select>
             </div>
 
             <button type="submit">Login</button>

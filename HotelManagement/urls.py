@@ -12,13 +12,12 @@ urlpatterns = [
     path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('rooms/', views.rooms, name='rooms'),
     path('book_room/', views.book_room, name='book_room'), # Use room_type instead of room_id
-    path('signup/', views.signup, name='signup'),
+    path('signup/', views.signup_view, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('invoice/', views.invoice, name='invoice'),  # Booking page URL
     path('bookings/', views.bookings, name='bookings'),
-    path('register/', views.signup, name='register'),
+    path('register/', views.signup_view, name='register'),
     path("login/", views.custom_login_view, name="login"),
-    path("staff/homepage/", views.staff_homepage, name="staff_homepage"),
     path("customer/homepage/", views.customer_homepage, name="customer_homepage"),
     path('book_room/', views.book_room, name='book_room'),
     path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),

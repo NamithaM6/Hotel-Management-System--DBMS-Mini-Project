@@ -7,7 +7,8 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth import login, authenticate
 from django.urls import reverse
 from decimal import Decimal  # Import Decimal class
-
+from .forms import SignUpDetailsForm
+from django.contrib.auth import get_user_model
 # Home view
 def home(request):
     if request.user.is_authenticated:
@@ -217,18 +218,15 @@ def invoice(request):
     return render(request, 'invoice.html', {'booking': booking})
 
 # Sign Up View
-def signup(request):
+def signup_view(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = SignUpDetailsForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)  # Automatically log the user in after signing up
-            messages.success(request, 'Your account has been created successfully! You are now logged in.')
-            return redirect('home')  # Redirect to the home page after successful sign-up
-        else:
-            messages.error(request, 'There was an error in your form. Please try again.')
+            # Process form data, create user, etc.
+            # Redirect to the login page after successful signup
+            return redirect('login') 
     else:
-        form = CustomUserCreationForm()
+        form = SignUpDetailsForm()
 
     return render(request, 'signup.html', {'form': form})
 

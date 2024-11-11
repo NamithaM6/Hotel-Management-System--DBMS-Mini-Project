@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 import datetime
 from decimal import Decimal
+from django import forms
 
 # Define custom User model
 class User(AbstractUser):
@@ -30,6 +31,15 @@ class Room(models.Model):
 
     def __str__(self):
         return f"{self.room_type} Room - {self.available_rooms} available"
+    
+class SignUpDetails(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    password = models.CharField(max_length=128)  # Store password in hashed format by default
+    user_type = models.CharField(max_length=10, choices=User.USER_TYPE_CHOICES)
+
+    def __str__(self):
+        return self.username
+
     
 class FoodItem(models.Model):
     name = models.CharField(max_length=100)

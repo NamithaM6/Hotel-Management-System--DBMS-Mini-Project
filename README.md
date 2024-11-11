@@ -42,9 +42,3 @@ Customer (User) Module:
 - Adding payment gateway integration.
 - Advanced reporting and analytics.
 - Enhanced user notification system.
-
- Contributing
-Guidelines for contributing and collaborating on the project.
-
- License
-Specify the license under which the project is distributed.

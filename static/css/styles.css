@@ -272,3 +272,92 @@ body {
 .service-button:hover {
     background-color: #ffb366; /* Darker peach color on hover */
 }
+
+/* Table Styling */
+.table-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .availability-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .availability-table th,
+  .availability-table td {
+    padding: 15px;
+    text-align: left;
+  }
+  
+  .availability-table th {
+    background-color: #ff6f61; /* Peachy Red */
+    color: white;
+    font-size: 18px;
+  }
+  
+  .availability-table td {
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .availability-table tr:nth-child(even) td {
+    background-color: #fce4d6; /* Light Peach */
+  }
+  
+  .room-type {
+    font-weight: bold;
+  }
+  
+  .available-rooms {
+    color: #ff6f61; /* Peachy Red */
+  }
+  
+  .btn-update {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #ff6f61; /* Peachy Red */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-update:hover {
+    background-color: #e75d54; /* Darker Peachy Red */
+  }
+  
+  /* Notifications Styling */
+  .notifications {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .notifications ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .notifications li {
+    background-color: #fce4d6;  /* Light peach */
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .notifications li strong {
+    color: #ff6f61; /* Peachy red for the label */
+  }
+  
+  

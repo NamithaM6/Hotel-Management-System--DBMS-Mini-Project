@@ -18,7 +18,7 @@ urlpatterns = [
     path('bookings/', views.bookings, name='bookings'),
     path('register/', views.signup_view, name='register'),
     path("login/", views.custom_login_view, name="login"),
-    path("customer/homepage/", views.customer_homepage, name="customer_homepage"),
+    path("customer/homepage/", views.home, name="customer_homepage"),
     path('book_room/', views.book_room, name='book_room'),
     path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
     path('cancel_all_bookings/', views.cancel_all_bookings, name='cancel_all_bookings'),
@@ -30,4 +30,5 @@ urlpatterns = [
     path('order_summary/', views.order_summary, name='order_summary'),
     path('cart/', views.cart, name='cart'),
     path('update_cart/<int:order_id>/', views.update_cart, name='update_cart'),
+    path('staff_homepage/', views.staff_homepage, name='staff_homepage'),
 ]

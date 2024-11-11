@@ -2,6 +2,8 @@
 from django import forms
 from .models import User,SignUpDetails
 from django.contrib.auth.forms import UserCreationForm
+from .models import UserProfile
+
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -35,3 +37,5 @@ class SignUpDetailsForm(forms.Form):
         if password1 != password2:
             raise forms.ValidationError("Passwords do not match")
         return cleaned_data
+    
+    

@@ -4,20 +4,42 @@
   <h1>Welcome, {{ user.username }}!</h1>
   <h2>Manage Room Availability</h2>
 
-  <table>
-    <tr>
-      <th>Room Type</th>
-      <th>Available Rooms</th>
-      <th>Actions</th>
-    </tr>
-    {% for room in rooms %}
-      <tr>
-        <td>{{ room.room_type }}</td>
-        <td>{{ room.available_rooms }}</td>
-        <td>
-          <a href="{% url 'update_room_availability' room.id %}">Update Availability</a>
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
+  <!-- Room Availability Table -->
+  <div class="table-container">
+    <table class="availability-table">
+      <thead>
+        <tr>
+          <th>Room Type</th>
+          <th>Available Rooms</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="room-type">Single</td>
+          <td class="available-rooms">15</td>
+        </tr>
+        <tr>
+          <td class="room-type">Double</td>
+          <td class="available-rooms">10</td>
+        </tr>
+        <tr>
+          <td class="room-type">Suite</td>
+          <td class="available-rooms">7</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Notifications</h2>
+  
+  <!-- Hardcoded Notifications for Room Service Requests -->
+  <div class="notifications">
+    <ul>
+      <li><strong>Request for Room Cleaning:</strong> Room 101 needs cleaning - Pending</li>
+      <li><strong>Request for Buggy Service:</strong> Room 202 requested buggy service at 4:00 PM - Pending</li>
+      <li><strong>Request for Room Cleaning:</strong> Room 303 needs cleaning - Completed</li>
+    </ul>
+  </div>
+
 {% endblock %}

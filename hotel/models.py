@@ -37,7 +37,8 @@ class Booking(models.Model):
     check_in_date = models.DateField(default=datetime.date.today)
     check_out_date = models.DateField(default=datetime.date.today)
     bill = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
+    room_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    nights = models.IntegerField(null=True)
     def __str__(self):
         return f"Booking for {self.user.username} - {self.room_type}"
 

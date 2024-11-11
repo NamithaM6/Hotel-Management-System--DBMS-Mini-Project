@@ -1,19 +1,13 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<h2>Invoice</h2>
-
 {% if booking %}
     <h3>Booking Details</h3>
     <ul>
         <li>Room Type: {{ booking.room_type }}</li>
         <li>Check-in Date: {{ booking.check_in_date }}</li>
         <li>Check-out Date: {{ booking.check_out_date }}</li>
-        <li>Total Bill: ${{ booking.bill }}</li>
+        <li>Price per Night: ${{ booking.room_price }}</li> <!-- assuming you have access to room details -->
+        <li>Total Nights: {{ booking.nights }}</li>
+        <li><strong>Total Bill:</strong> ${{ booking.bill }}</li>
     </ul>
 {% else %}
     <p>You don't have any bookings to view.</p>
 {% endif %}
-
-<p><a href="{% url 'bookings' %}">Back to Bookings</a></p>
-{% endblock %}

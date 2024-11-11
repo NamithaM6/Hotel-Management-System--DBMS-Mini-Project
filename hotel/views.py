@@ -45,12 +45,23 @@ def book_room(request):
             room = get_object_or_404(Room, room_type=room_type)
 
             if room.available_rooms > 0:
-                # Create the booking
+                # Calculate the number of nights between check-in and check-out
+                check_in = datetime.strptime(check_in_date, '%Y-%m-%d')
+                check_out = datetime.strptime(check_out_date, '%Y-%m-%d')
+                nights = (check_out - check_in).days
+                room_price = room.price  # Store room price in a variable
+                # Calculate total bill using room price and nights
+                total_bill = room.price * nights
+
+                # Create the booking with the total bill
                 booking = Booking(
                     user=request.user,
                     room_type=room_type,
                     check_in_date=check_in_date,
-                    check_out_date=check_out_date
+                    check_out_date=check_out_date,
+                    bill=total_bill , # Storing the calculated bill
+                    nights=nights,
+                    room_price=room_price
                 )
                 booking.save()
 
@@ -67,7 +78,7 @@ def book_room(request):
         return redirect('bookings')  # Redirect back to bookings page after booking
     else:
         # If the request is not POST, show the booking form
-        return render(request, 'hotel/bookings.html')
+        return render(request, 'bookings.html')
     
 @login_required
 def cancel_all_bookings(request):

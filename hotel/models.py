@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import datetime
+from decimal import Decimal
 
 # Define custom User model
 class User(AbstractUser):
@@ -29,6 +30,25 @@ class Room(models.Model):
 
     def __str__(self):
         return f"{self.room_type} Room - {self.available_rooms} available"
+    
+class FoodItem(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    image = models.ImageField(upload_to='menu_images/')
+
+    def __str__(self):
+        return self.name
+    
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    food_item = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=1)  # new field for quantity
+    ordered = models.BooleanField(default=False)  # tracks if the order is confirmed
+
+    @property
+    def total_price(self):
+        return self.price * self.quantity
 
 # Booking model
 class Booking(models.Model):

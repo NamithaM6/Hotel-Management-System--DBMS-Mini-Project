@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="order-summary">
+    <h2>Your Order Summary</h2>
+
+    {% if cart %}
+        <ul>
+            {% for order in cart %}
+                <li>{{ order.item.name }} - Rs.{{ order.item.price }} x {{ order.quantity }} = Rs.{{ order.item_total }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Total Bill: Rs.{{ total_bill }}</h3>
+        <p>Your order will be delivered soon.</p>
+    {% else %}
+        <p>No items in your cart.</p>
+    {% endif %}
+</div>
+{% endblock %}

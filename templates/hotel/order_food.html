@@ -1,41 +1,26 @@
 {% extends 'base.html' %}
-{% load static %}
+
 {% block content %}
 <div class="menu-container" style="background-color: #ffe5b4; padding: 20px; border-radius: 10px;">
     <h2 style="text-align: center; color: #333;">Room Service - Food Menu</h2>
     
-    <div class="menu-grid" style="display: flex; flex-wrap: wrap; justify-content: center;">
-        <!-- Food Item 1 -->
-        <div class="menu-item" style="width: 250px; margin: 15px; text-align: center; background-color: #fff; border-radius: 8px; padding: 15px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-            <img src="{% static 'images/pasta.jpg' %}" alt="Pasta" style="width: 100%; border-radius: 8px;">
-            <h3 style="color: #444;">Pasta </h3>
-            <p style="font-size: 1.1em; color: #666;">Rs250.00</p>
-            <button class="order-button" style="background-color: #ff704d; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Order</button>
-        </div>
+    <form method="POST" action="{% url 'order_food' %}">
+        {% csrf_token %}
+        <div class="menu-grid" style="display: flex; flex-wrap: wrap; justify-content: center;">
+            {% for item in menu_items %}
+                <div class="menu-item" style="width: 250px; margin: 15px; text-align: center; background-color: #fff; border-radius: 8px; padding: 15px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" style="width: 100%; border-radius: 10px;">
+                    <h3 style="color: #444;">{{ item.name }}</h3>
+                    <p style="font-size: 1.1em; color: #666;">Rs.{{ item.price }}</p>
 
-        <!-- Food Item 2 -->
-        <div class="menu-item" style="width: 250px; margin: 15px; text-align: center; background-color: #fff; border-radius: 8px; padding: 15px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-            <img src="{% static 'images/burger.jpg' %}" alt="Burger" style="width: 100%; border-radius: 8px;">
-            <h3 style="color: #444;">Classic Burger</h3>
-            <p style="font-size: 1.1em; color: #666;">Rs150.00</p>
-            <button class="order-button" style="background-color: #ff704d; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Order</button>
-        </div>
+                    <label for="quantity_{{ item.id }}">Quantity:</label>
+                    <input type="number" name="quantity" id="quantity_{{ item.id }}" value="1" min="1" style="width: 50px;">
+                    <input type="hidden" name="food_item_id" value="{{ item.id }}">
 
-        <!-- Food Item 3 -->
-        <div class="menu-item" style="width: 250px; margin: 15px; text-align: center; background-color: #fff; border-radius: 8px; padding: 15px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-            <img src="{% static 'images/salad.jpg' %}" alt="Salad" style="width: 100%; border-radius: 8px;">
-            <h3 style="color: #444;">Caesar Salad</h3>
-            <p style="font-size: 1.1em; color: #666;">Rs.100.00</p>
-            <button class="order-button" style="background-color: #ff704d; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Order</button>
+                    <button type="submit" class="order-button" style="background-color: #ff704d; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Order</button>
+                </div>
+            {% endfor %}
         </div>
-
-        <!-- Food Item 4 -->
-        <div class="menu-item" style="width: 250px; margin: 15px; text-align: center; background-color: #fff; border-radius: 8px; padding: 15px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-            <img src="{% static 'images/pizza.jpg' %}" alt="Pizza" style="width: 100%; border-radius: 8px;">
-            <h3 style="color: #444;">Margherita Pizza</h3>
-            <p style="font-size: 1.1em; color: #666;">Rs.600.00</p>
-            <button class="order-button" style="background-color: #ff704d; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Order</button>
-        </div>
-    </div>
+    </form>
 </div>
 {% endblock %}

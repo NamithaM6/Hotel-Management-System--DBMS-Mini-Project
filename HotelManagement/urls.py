@@ -27,4 +27,8 @@ urlpatterns = [
     path('order_food/', views.order_food, name='order_food'),
     path('clean_room/', views.clean_room, name='clean_room'),
     path('book_buggy/', views.book_buggy, name='book_buggy'), 
+    path('order_food/', views.order_food, name='order_food'),
+    path('order_summary/', views.order_summary, name='order_summary'),
+    path('cart/', views.cart, name='cart'),
+    path('update_cart/<int:order_id>/', views.update_cart, name='update_cart'),
 ]

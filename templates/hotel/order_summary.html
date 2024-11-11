@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="order-summary" style="background-color: #ffe5b4; padding: 20px; border-radius: 10px;">
+    <h2>Your Order Summary</h2>
+
+    {% if cart %}
+        <ul>
+            {% for item in cart %}
+                <li>{{ item.name }} - Rs.{{ item.price }} x {{ item.quantity }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Total Bill: Rs.{{ total_amount }}</h3>
+        <p>{{ message }}</p>
+    {% else %}
+        <p>No items to display.</p>
+    {% endif %}
+</div>
+{% endblock %}

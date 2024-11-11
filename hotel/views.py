@@ -2,10 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime
-from .models import Room, Booking, User
+from .models import Room, Booking, User,Order,FoodItem
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login, authenticate
 from django.urls import reverse
+from decimal import Decimal  # Import Decimal class
 
 # Home view
 def home(request):
@@ -38,6 +39,82 @@ def clean_room(request):
     return render(request, 'clean_room.html') 
 def book_buggy(request):
     return render(request, 'book_buggy.html')
+
+def cart(request):
+    # Retrieve the cart from the session
+    cart = request.session.get('cart', [])
+
+    if request.method == 'POST':
+        # Calculate the total amount using Decimal
+        total_amount = sum(Decimal(item['price']) * item['quantity'] for item in cart)
+
+        # Generate a bill and show the order message
+        context = {
+            'cart': cart,
+            'total_amount': total_amount,
+            'message': "Your order will be delivered soon!"
+        }
+
+        # Clear the cart after the order is placed
+        request.session['cart'] = []
+        return render(request, 'order_summary.html', context)
+
+    return render(request, 'cart.html', {'cart': cart})
+
+
+def order_food(request):
+    # Check if the request is POST and handle cart addition
+    if request.method == 'POST':
+        # Get the food item ID and quantity
+        food_item_id = request.POST.get('food_item_id')
+        quantity = int(request.POST.get('quantity', 1))  # Default quantity is 1
+
+        # Get the food item from the database
+        food_item = FoodItem.objects.get(id=food_item_id)
+
+        # Initialize cart in session if not already present
+        if 'cart' not in request.session:
+            request.session['cart'] = []
+
+        # Add the food item to the cart (as a dictionary with quantity)
+        cart = request.session['cart']
+        existing_item = next((item for item in cart if item['id'] == food_item.id), None)
+        
+        if existing_item:
+            existing_item['quantity'] += quantity
+        else:
+            cart.append({
+                'id': food_item.id,
+                'name': food_item.name,
+                'price': str(food_item.price),
+                'quantity': quantity,
+                'image_url': food_item.image.url
+            })
+
+        # Save the updated cart to the session
+        request.session['cart'] = cart
+
+        return redirect('cart')  # Redirect to cart page
+
+    # For GET request, just display the menu
+    menu_items = FoodItem.objects.all()
+    return render(request, 'order_food.html', {'menu_items': menu_items})
+
+def update_cart(request, order_id):
+    """Update the quantity of an item in the cart."""
+    order = Order.objects.get(id=order_id, user=request.user, ordered=False)
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        order.quantity = quantity
+        order.save()
+    return redirect('order_food')
+
+@login_required
+def order_summary(request):
+    orders = Order.objects.filter(user=request.user)
+    total_bill = sum(order.total_price for order in orders)
+    return render(request, 'order_summary.html', {'orders': orders, 'total_bill': total_bill})
+
 
 # Room Booking View
 @login_required

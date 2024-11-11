@@ -32,6 +32,13 @@ def bookings(request):
 def room_service(request):
     return render(request, 'room_service.html')
 
+def order_food(request):
+    return render(request, 'order_food.html')
+def clean_room(request):
+    return render(request, 'clean_room.html') 
+def book_buggy(request):
+    return render(request, 'book_buggy.html')
+
 # Room Booking View
 @login_required
 def book_room(request):

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Welcome, {{ user.username }}!</h1>
+  <h2>Manage Room Availability</h2>
+
+  <table>
+    <tr>
+      <th>Room Type</th>
+      <th>Available Rooms</th>
+      <th>Actions</th>
+    </tr>
+    {% for room in rooms %}
+      <tr>
+        <td>{{ room.room_type }}</td>
+        <td>{{ room.available_rooms }}</td>
+        <td>
+          <a href="{% url 'update_room_availability' room.id %}">Update Availability</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

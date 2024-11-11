@@ -44,6 +44,22 @@
 
 <hr>
 
+<h3>Your Existing Bookings</h3>
+{% if user.bookings.all %}
+    <ul>
+        {% for booking in user.bookings.all %}
+            <li>
+                Room: {{ booking.room_type }} | 
+                Check-in: {{ booking.check_in_date }} | 
+                Check-out: {{ booking.check_out_date }} | 
+                <a href="{% url 'cancel_booking' booking.id %}">Cancel Booking</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You don't have any bookings yet.</p>
+{% endif %}
+
 <p>Already have a booking? <a href="{% url 'invoice' %}">View your invoice here</a></p>
 
 <!-- Link to external JavaScript file -->

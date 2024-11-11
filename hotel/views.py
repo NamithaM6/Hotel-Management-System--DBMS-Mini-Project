@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime
 from .models import Room, Booking, User
-from .forms import CustomUserCreationForm  # Correct form for custom sign-up
+from .forms import CustomUserCreationForm
 from django.contrib.auth import login, authenticate
 from django.urls import reverse
 
@@ -18,62 +18,67 @@ def rooms(request):
     rooms = Room.objects.all()  # Fetch all rooms from the database
     return render(request, 'rooms.html', {'rooms': rooms})  # Pass rooms to the template
 
-
 # Bookings view - Displays user bookings (only for authenticated users)
 @login_required
 def bookings(request):
     user_bookings = Booking.objects.filter(user=request.user)
     return render(request, 'bookings.html', {'bookings': user_bookings})
 
-
 # Room Booking View
 @login_required
-def book_room(request):
+def book_room(request, room_type):
     if request.method == 'POST':
-        # Extract form data
-        room_type = request.POST.get('room_type')
-        check_in = request.POST.get('check_in_date')
-        check_out = request.POST.get('check_out_date')
-        
+        check_in_date = request.POST.get('check_in_date')
+        check_out_date = request.POST.get('check_out_date')
+
+        # Check if the room type is available
         try:
-            # Convert the string dates to date objects
-            check_in_date = datetime.strptime(check_in, '%Y-%m-%d').date()
-            check_out_date = datetime.strptime(check_out, '%Y-%m-%d').date()
-
-            # Calculate the number of days between the check-in and check-out dates
-            num_days = (check_out_date - check_in_date).days
-            
-            # Fetch room by type
             room = Room.objects.get(room_type=room_type)
-            
-            if room.available_rooms > 0:
-                # Decrease room availability by 1
-                room.available_rooms -= 1
-                room.save()
+            if room.available_rooms <= 0:
+                messages.error(request, "Sorry, no rooms available for this type.")
+                return redirect('book_room', room_type=room_type)
 
-                # Calculate the bill based on the room price and the number of days
-                bill = num_days * room.price  # Multiply price by number of days
-                
-                # Create a new booking record
-                Booking.objects.create(
-                    user=request.user,
-                    room_type=room.room_type,
-                    check_in_date=check_in_date,
-                    check_out_date=check_out_date,
-                    bill=bill
-                )
+            # Create booking
+            booking = Booking(
+                user=request.user,
+                room_type=room_type,
+                check_in_date=check_in_date,
+                check_out_date=check_out_date,
+                bill=room.price,  # This can be modified to include the actual bill logic
+            )
+            booking.save()
 
-                # Success message
-                messages.success(request, "Booking successful!")
-                return redirect('bookings')
-            else:
-                messages.error(request, "No rooms available for the selected type.")
+            # Update room availability
+            room.available_rooms -= 1
+            room.save()
+
+            messages.success(request, f"Booking successful! Your room type is {room_type}.")
+            return redirect('invoice')  # Redirect to invoice page
+
         except Room.DoesNotExist:
             messages.error(request, "Invalid room type selected.")
-        except ValueError:
-            messages.error(request, "Invalid date format.")
-    return render(request, 'bookings.html')
+            return redirect('book_room', room_type=room_type)
 
+    return render(request, 'bookings.html', {'room_type': room_type})
+
+@login_required
+def cancel_booking(request, booking_id):
+    try:
+        booking = Booking.objects.get(id=booking_id, user=request.user)
+
+        # Update room availability
+        room = Room.objects.get(room_type=booking.room_type)
+        room.available_rooms += 1
+        room.save()
+
+        # Delete the booking
+        booking.delete()
+
+        messages.success(request, "Your booking has been successfully canceled.")
+    except Booking.DoesNotExist:
+        messages.error(request, "Booking not found.")
+    
+    return redirect('home')  # Redirect to homepage after cancellation
 
 # Invoice view to show booking details
 @login_required
@@ -108,9 +113,9 @@ def custom_login_view(request):
             login(request, user)
             # Redirect based on user type
             if user.user_type == "staff":
-                return redirect(reverse("staff_homepage"))  # Define this URL pattern in urls.py
+                return redirect(reverse("staff_homepage"))
             else:
-                return redirect(reverse("customer_homepage"))  # Define this URL pattern for customer
+                return redirect(reverse("customer_homepage"))
 
         else:
             messages.error(request, "Invalid username or password")
@@ -123,4 +128,4 @@ def staff_homepage(request):
 
 def customer_homepage(request):
     # Customer homepage logic here
-    return render(request, "customer_homepage.html")
+    return render(request, "home.html")  # Use home.html for the customer homepage

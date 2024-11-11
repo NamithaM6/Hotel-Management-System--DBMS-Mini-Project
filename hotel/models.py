@@ -33,17 +33,14 @@ class Room(models.Model):
 # Booking model
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    room_type = models.CharField(
-        max_length=10,
-        choices=ROOM_TYPES,
-        default='single'
-    )
+    room_type = models.CharField(max_length=10, choices=ROOM_TYPES, default='single')
     check_in_date = models.DateField(default=datetime.date.today)
     check_out_date = models.DateField(default=datetime.date.today)
     bill = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return f"Booking for {self.user.username} - {self.room_type}"
+
 
 # Profile model (Optional: If you want additional user profile data)
 class Profile(models.Model):

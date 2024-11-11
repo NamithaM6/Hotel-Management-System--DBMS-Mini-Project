@@ -16,13 +16,16 @@
                 <a href="{% url 'rooms' %}" class="nav-link">Rooms</a>
                 <a href="{% url 'bookings' %}" class="nav-link">Booking</a>
                 <a href="{% url 'room_service' %}" class="nav-link">Room Service</a>
-
-                <!-- Logout button shown only if user is authenticated -->
+                
                 {% if user.is_authenticated %}
+                    <!-- Logout form for authenticated users -->
                     <form method="POST" action="{% url 'logout' %}" style="display: inline;">
                         {% csrf_token %}
                         <button type="submit" class="nav-link logout-button">Logout</button>
                     </form>
+                {% else %}
+                    <!-- Login link for unauthenticated users -->
+                    <a href="{% url 'login' %}" class="nav-link">Login</a>
                 {% endif %}
             </nav>
         </div>

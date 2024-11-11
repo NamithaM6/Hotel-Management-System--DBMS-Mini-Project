@@ -86,3 +86,4 @@ AUTH_USER_MODEL = 'hotel.User'  # This is correct
 
 # settings.py
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'  # Redirects to the homepage after login

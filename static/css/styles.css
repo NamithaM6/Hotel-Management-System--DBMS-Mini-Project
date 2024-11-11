@@ -252,3 +252,23 @@ body {
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
+
+.room-service-page h2 {
+    color: #333;
+    text-align: center;
+}
+.service-option {
+    margin: 10px 0;
+}
+.service-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #ffcc99; /* Lighter peach color */
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.service-button:hover {
+    background-color: #ffb366; /* Darker peach color on hover */
+}

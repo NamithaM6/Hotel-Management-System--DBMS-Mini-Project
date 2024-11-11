@@ -28,6 +28,10 @@ def bookings(request):
 
     return render(request, 'bookings.html', {'bookings': user_bookings})
 
+@login_required
+def room_service(request):
+    return render(request, 'room_service.html')
+
 # Room Booking View
 @login_required
 def book_room(request):

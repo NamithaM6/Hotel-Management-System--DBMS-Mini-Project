@@ -86,4 +86,3 @@ AUTH_USER_MODEL = 'hotel.User'  # This is correct
 
 # settings.py
 LOGOUT_REDIRECT_URL = '/'
-

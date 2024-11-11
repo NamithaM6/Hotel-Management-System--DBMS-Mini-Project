@@ -13,7 +13,7 @@ urlpatterns = [
     path('rooms/', views.rooms, name='rooms'),
     path('book_room/', views.book_room, name='book_room'), # Use room_type instead of room_id
     path('signup/', views.signup, name='signup'),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('invoice/', views.invoice, name='invoice'),  # Booking page URL
     path('bookings/', views.bookings, name='bookings'),
     path('register/', views.signup, name='register'),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('book_room/', views.book_room, name='book_room'),
     path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
     path('cancel_all_bookings/', views.cancel_all_bookings, name='cancel_all_bookings'),
+    path('room_service/', views.room_service, name='room_service'),
 ]

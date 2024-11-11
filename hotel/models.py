@@ -17,6 +17,7 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
     
+# Custom User Manager
 class UserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
         if not username:
@@ -32,7 +33,8 @@ class UserManager(BaseUserManager):
 
         return self.create_user(username, password, **extra_fields)
 
-class User(AbstractBaseUser):
+# Custom User model
+class User(AbstractBaseUser, PermissionsMixin):  # Inherit from PermissionsMixin
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(unique=True, blank=True, null=True)
     user_type = models.CharField(max_length=10, choices=(('customer', 'Customer'), ('staff', 'Staff')))

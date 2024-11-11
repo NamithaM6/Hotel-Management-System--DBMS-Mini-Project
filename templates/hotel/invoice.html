@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Booking Invoice</h2>
+<h2>Invoice</h2>
 
 {% if booking %}
-    <p><strong>Room Type:</strong> {{ booking.room_type }}</p>
-    <p><strong>Check-in Date:</strong> {{ booking.check_in_date }}</p>
-    <p><strong>Check-out Date:</strong> {{ booking.check_out_date }}</p>
-    <p><strong>Total Bill:</strong> Rs.{{ booking.bill }}</p>
-    <p>Thank you for booking with us!</p>
+    <h3>Booking Details</h3>
+    <ul>
+        <li>Room Type: {{ booking.room_type }}</li>
+        <li>Check-in Date: {{ booking.check_in_date }}</li>
+        <li>Check-out Date: {{ booking.check_out_date }}</li>
+        <li>Total Bill: ${{ booking.bill }}</li>
+    </ul>
 {% else %}
-    <p>No booking information available.</p>
+    <p>You don't have any bookings to view.</p>
 {% endif %}
 
-<a href="{% url 'home' %}">Return to Home</a>
+<p><a href="{% url 'bookings' %}">Back to Bookings</a></p>
 {% endblock %}

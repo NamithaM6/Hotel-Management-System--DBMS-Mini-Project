@@ -18,48 +18,79 @@ def rooms(request):
     rooms = Room.objects.all()  # Fetch all rooms from the database
     return render(request, 'rooms.html', {'rooms': rooms})  # Pass rooms to the template
 
-# Bookings view - Displays user bookings (only for authenticated users)
 @login_required
 def bookings(request):
     user_bookings = Booking.objects.filter(user=request.user)
+    booking_count = user_bookings.count()  # Count the user's bookings
+    
+    if booking_count > 0:
+        messages.info(request, f"You have {booking_count} existing booking(s).")
+
     return render(request, 'bookings.html', {'bookings': user_bookings})
 
 # Room Booking View
 @login_required
-def book_room(request, room_type):
+def book_room(request):
     if request.method == 'POST':
+        room_type = request.POST.get('room_type')
         check_in_date = request.POST.get('check_in_date')
         check_out_date = request.POST.get('check_out_date')
 
-        # Check if the room type is available
+        # Check if all required fields are filled
+        if not room_type or not check_in_date or not check_out_date:
+            messages.error(request, "All fields are required.")
+            return redirect('bookings')
+
         try:
-            room = Room.objects.get(room_type=room_type)
-            if room.available_rooms <= 0:
-                messages.error(request, "Sorry, no rooms available for this type.")
-                return redirect('book_room', room_type=room_type)
+            room = get_object_or_404(Room, room_type=room_type)
 
-            # Create booking
-            booking = Booking(
-                user=request.user,
-                room_type=room_type,
-                check_in_date=check_in_date,
-                check_out_date=check_out_date,
-                bill=room.price,  # This can be modified to include the actual bill logic
-            )
-            booking.save()
+            if room.available_rooms > 0:
+                # Create the booking
+                booking = Booking(
+                    user=request.user,
+                    room_type=room_type,
+                    check_in_date=check_in_date,
+                    check_out_date=check_out_date
+                )
+                booking.save()
 
-            # Update room availability
-            room.available_rooms -= 1
-            room.save()
+                # Decrease the available rooms
+                room.available_rooms -= 1
+                room.save()
 
-            messages.success(request, f"Booking successful! Your room type is {room_type}.")
-            return redirect('invoice')  # Redirect to invoice page
-
+                messages.success(request, f"Your {room_type} room has been booked successfully!")
+            else:
+                messages.error(request, f"Sorry, no {room_type} rooms are available.")
         except Room.DoesNotExist:
             messages.error(request, "Invalid room type selected.")
-            return redirect('book_room', room_type=room_type)
 
-    return render(request, 'bookings.html', {'room_type': room_type})
+        return redirect('bookings')  # Redirect back to bookings page after booking
+    else:
+        # If the request is not POST, show the booking form
+        return render(request, 'hotel/bookings.html')
+    
+@login_required
+def cancel_all_bookings(request):
+    try:
+        # Fetch all bookings for the logged-in user
+        user_bookings = Booking.objects.filter(user=request.user)
+
+        # Iterate over all bookings to cancel them
+        for booking in user_bookings:
+            # Get the associated room and increase the available rooms
+            room = get_object_or_404(Room, room_type=booking.room_type)
+            room.available_rooms += 1
+            room.save()
+            
+            # Delete the booking
+            booking.delete()
+
+        messages.success(request, "All your bookings have been successfully canceled.")
+    except Exception as e:
+        messages.error(request, f"An error occurred while canceling your bookings: {e}")
+    
+    return redirect('bookings')  # Redirect to the bookings page after cancellation
+
 
 @login_required
 def cancel_booking(request, booking_id):

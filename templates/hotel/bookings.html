@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<h2>Book Your Room</h2>
+<h2>Your Bookings</h2>
 
 <!-- Logout Button -->
 <form method="POST" action="{% url 'logout' %}">
@@ -10,11 +10,12 @@
     <button type="submit" class="logout-button">Logout</button>
 </form>
 
+<hr>
+
 <!-- Booking Form -->
+<h3>Book a Room</h3>
 <form method="POST" action="{% url 'book_room' %}">
     {% csrf_token %}
-    <h3>Room Booking Details</h3>
-    
     <label for="room_type">Room Type:</label>
     <select name="room_type" required>
         <option value="single">Single</option>
@@ -31,23 +32,18 @@
     <button type="submit">Confirm Booking</button>
 </form>
 
-<!-- Show success/error messages -->
-{% if messages %}
-    <div id="django-messages">
-        {% for message in messages %}
-            <div class="alert {{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
-
 <hr>
 
+<!-- Cancel All Bookings Button -->
+<form method="POST" action="{% url 'cancel_all_bookings' %}">
+    {% csrf_token %}
+    <button type="submit" class="cancel-all-button">Cancel All Bookings</button>
+</form>
+
 <h3>Your Existing Bookings</h3>
-{% if user.bookings.all %}
+{% if bookings %}
     <ul>
-        {% for booking in user.bookings.all %}
+        {% for booking in bookings %}
             <li>
                 Room: {{ booking.room_type }} | 
                 Check-in: {{ booking.check_in_date }} | 
@@ -62,7 +58,17 @@
 
 <p>Already have a booking? <a href="{% url 'invoice' %}">View your invoice here</a></p>
 
-<!-- Link to external JavaScript file -->
+<!-- Display messages as an alert -->
+{% if messages %}
+    <div id="django-messages" data-message="{% for message in messages %}{{ message }}{% if not forloop.last %}<br>{% endif %}{% endfor %}">
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
 <script src="{% static 'js/messages.js' %}"></script>
 
 {% endblock %}

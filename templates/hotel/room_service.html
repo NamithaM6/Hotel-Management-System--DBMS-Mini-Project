@@ -1,18 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="room-service-page" style="background-color: peach; padding: 20px;">
-    <h2>Room Service</h2>
-    <p>Select from the following services:</p>
+<div class="room-service-page" style="background-color: #ffe5b4; padding: 20px; border-radius: 10px;">
+    <h2 style="text-align: center; color: #333;">Room Service</h2>
+    <p style="text-align: center;">Select from the following services:</p>
     
-    <div class="service-option">
-        <a href="{% url 'order_food' %}" class="service-button">Order Food</a>
+    <div class="service-option" style="display: flex; justify-content: center; margin-top: 15px;">
+        <a href="{% url 'order_food' %}" class="service-button" style="margin: 10px; background-color: #ff704d; padding: 10px 20px; color: white; text-decoration: none; border-radius: 5px;">Order Food</a>
     </div>
-    <div class="service-option">
-        <a href="{% url 'clean_room' %}" class="service-button">Request Room Cleaning</a>
+    <div class="service-option" style="display: flex; justify-content: center; margin-top: 15px;">
+        <a href="#" onclick="notifyCleaning()" class="service-button" style="margin: 10px; background-color: #ff704d; padding: 10px 20px; color: white; text-decoration: none; border-radius: 5px;">Request Room Cleaning</a>
     </div>
-    <div class="service-option">
-        <a href="{% url 'book_buggy' %}" class="service-button">Book Buggy Service</a>
+    <div class="service-option" style="display: flex; justify-content: center; margin-top: 15px;">
+        <a href="#" onclick="notifyBuggy()" class="service-button" style="margin: 10px; background-color: #ff704d; padding: 10px 20px; color: white; text-decoration: none; border-radius: 5px;">Book Buggy Service</a>
     </div>
-    <!-- Additional options -->
 </div>
+
+<script>
+    // JavaScript functions for notifications
+    function notifyCleaning() {
+        alert("Notification sent to our staff. Room cleaning will be arranged shortly.");
+    }
+
+    function notifyBuggy() {
+        alert("Your buggy will arrive in approximately 3 minutes.");
+    }
+</script>
 {% endblock %}

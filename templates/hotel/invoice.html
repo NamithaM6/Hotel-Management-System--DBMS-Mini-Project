@@ -1,13 +1,74 @@
-{% if booking %}
-    <h3>Booking Details</h3>
-    <ul>
-        <li>Room Type: {{ booking.room_type }}</li>
-        <li>Check-in Date: {{ booking.check_in_date }}</li>
-        <li>Check-out Date: {{ booking.check_out_date }}</li>
-        <li>Price per Night: ${{ booking.room_price }}</li> <!-- assuming you have access to room details -->
-        <li>Total Nights: {{ booking.nights }}</li>
-        <li><strong>Total Bill:</strong> ${{ booking.bill }}</li>
-    </ul>
-{% else %}
-    <p>You don't have any bookings to view.</p>
-{% endif %}
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .invoice-container {
+        background-color: #FFDAB9; /* Peach background color */
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: Arial, sans-serif;
+    }
+    .invoice-header {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .invoice-details {
+        list-style: none;
+        padding: 0;
+        font-size: 16px;
+        color: #444;
+    }
+    .invoice-details li {
+        margin: 10px 0;
+        padding: 8px;
+        border-bottom: 1px solid #ccc;
+    }
+    .invoice-total {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+        color: #333;
+    }
+    .back-button {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #ff7f50;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    .back-button:hover {
+        background-color: #ff6347;
+    }
+</style>
+
+<div class="invoice-container">
+    <div class="invoice-header">Invoice</div>
+
+    {% if booking %}
+        <ul class="invoice-details">
+            <li><strong>Room Type:</strong> {{ booking.room_type }}</li>
+            <li><strong>Check-in Date:</strong> {{ booking.check_in_date }}</li>
+            <li><strong>Check-out Date:</strong> {{ booking.check_out_date }}</li>
+            <li><strong>Price per Night:</strong> ${{ booking.room_price }}</li>
+            <li><strong>Total Nights:</strong> {{ booking.nights }}</li>
+            <li class="invoice-total"><strong>Total Bill:</strong> ${{ booking.bill }}</li>
+        </ul>
+    {% else %}
+        <p class="invoice-total">You don't have any bookings to view.</p>
+    {% endif %}
+
+    <a href="{% url 'bookings' %}" class="back-button">Back to Bookings</a>
+</div>
+{% endblock %}

@@ -61,9 +61,9 @@
             <li><strong>Room Type:</strong> {{ booking.room_type }}</li>
             <li><strong>Check-in Date:</strong> {{ booking.check_in_date }}</li>
             <li><strong>Check-out Date:</strong> {{ booking.check_out_date }}</li>
-            <li><strong>Price per Night:</strong> ${{ booking.room_price }}</li>
+            <li><strong>Price per Night:</strong> Rs.{{ booking.room_price }}</li>
             <li><strong>Total Nights:</strong> {{ booking.nights }}</li>
-            <li class="invoice-total"><strong>Total Bill:</strong> ${{ booking.bill }}</li>
+            <li class="invoice-total"><strong>Total Bill:</strong> Rs.{{ booking.bill }}</li>
         </ul>
     {% else %}
         <p class="invoice-total">You don't have any bookings to view.</p>

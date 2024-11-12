@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
 <div class="menu-container" style="background-color: #ffe5b4; padding: 30px; border-radius: 15px; max-width: 1200px; margin: 0 auto;">
     <h2 style="text-align: center; color: #333;">Room Service - Food Menu</h2>
-    
-    <form method="POST" action="{% url 'order_food' %}">
-        {% csrf_token %}
-        <div class="menu-grid" style="display: flex; flex-wrap: wrap; justify-content: center;">
-            {% for item in menu_items %}
-                <div class="menu-item" style="width: 300px; margin: 20px; text-align: center; background-color: #fff; border-radius: 10px; padding: 20px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);">
-                    <img src="{% static 'images/' %}{{ item.image }}" alt="{{ item.name }}" style="width: 100%; border-radius: 10px;">
-                    <h3 style="color: #444; margin-top: 10px;">{{ item.name }}</h3>
-                    <p style="font-size: 1.1em; color: #666;">Rs.{{ item.price }}</p>
 
-                    <label for="quantity_{{ item.id }}" style="display: block; margin-top: 10px;">Quantity:</label>
-                    <input type="number" name="quantity" id="quantity_{{ item.id }}" value="1" min="1" style="width: 60px;">
-                    <input type="hidden" name="food_item_id" value="{{ item.id }}">
+    <div class="menu-grid" style="display: flex; flex-wrap: wrap; justify-content: center;">
+        {% for item in menu_items %}
+            <!-- Individual form for each item -->
+            <form method="POST" action="{% url 'order_food' %}" style="width: 300px; margin: 20px; text-align: center; background-color: #fff; border-radius: 10px; padding: 20px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);">
+                {% csrf_token %}
+                <img src="{% static 'images/' %}{{ item.image }}" alt="{{ item.name }}" style="width: 100%; border-radius: 10px;">
+                <h3 style="color: #444; margin-top: 10px;">{{ item.name }}</h3>
+                <p style="font-size: 1.1em; color: #666;">Rs.{{ item.price }}</p>
 
-                    <button type="submit" class="order-button" style="background-color: #ff704d; color: #fff; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">Order</button>
-                </div>
-            {% endfor %}
-        </div>
-    </form>
+                <label for="quantity_{{ item.id }}" style="display: block; margin-top: 10px;">Quantity:</label>
+                <input type="number" name="quantity" id="quantity_{{ item.id }}" value="1" min="1" style="width: 60px;">
+                <input type="hidden" name="food_item_id" value="{{ item.id }}">
+
+                <button type="submit" class="order-button" style="background-color: #ff704d; color: #fff; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">Order</button>
+            </form>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
